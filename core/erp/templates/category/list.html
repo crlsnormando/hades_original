@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="card card-default">
+    <div class="card-header">
+      <h3 class="card-title">
+        <i class="fas fa-search"></i>
+        {{ title }}
+      </h3>
+    </div>
+
+    <div class="card-body">
+      <table class="table" id="example">
+        <thead>
+          <tr>
+            <th scope="col">Numero</th>
+            <th scope="col">nome</th>
+            <th scope="col">Opções</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for c in category %}
+            <tr>
+              <td>{{ c.id }}</td>
+              <td>{{ c.name }}</td>
+              <td>
+                <button type="button" class="btn btn-warning btn-xs btn-flat">
+                  <i class="far fa-edit"></i>
+                </button>
+                <button type="button" class="btn btn-danger btn-xs btn-flat">
+                  <i class="far fa-trash-alt"></i>
+                </button>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="card-footer">
+      <button class="btn btn-primary btn-flat"> 
+        <i class="fas fa-plus"></i>
+        Novo registro
+      </button>
+     </div>
+
+  </div>
+
+
+
+{% endblock %}
