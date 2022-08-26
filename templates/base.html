@@ -17,6 +17,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
   </nav>
   <!-- /.navbar -->
 
+
+<!-- ./wrapper -->
+
+
+
  <!-- Content Wrapper. Contains page content -->
  <div class="content-wrapper">
   <!-- Content Header (Page header) -->
@@ -66,7 +71,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 
 
-<!-- ./wrapper -->
 
 <!-- REQUIRED SCRIPTS -->
 
@@ -77,44 +81,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- AdminLTE App -->
 <script src="{% static 'libs/admlte3.2.0/dist/js/adminlte.min.js' %}"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
-<!--   #TODO configurar biblioteca local -->
-<!-- AdminLTE for demo purposes -->
+
 
  
-<script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.12.1/r-2.3.0/datatables.min.js"></script>
 
-<script type="application/javascript"> 
+{% block javascript %}
 
-  $(document).ready(function () {
-    $('#example').DataTable({
-        language: {
-            lengthMenu: 'Mostrar _MENU_ itens por pagina',
-            zeroRecords: 'Nothing found - sorry',
-            info: 'Mostrando pagina _PAGE_ de _PAGES_',
-            infoEmpty: 'No records available',
-            infoFiltered: '(filtered from _MAX_ total records)',
-            search:         "Localizar:",
-        },
-    });
+{% endblock %}
 
-    $('.btnTest').on('click', function(){
 
-      $.ajax({
-          url: "{% url 'erp:category_list' %}",
-          type: 'POST',
-          data: {id: 2},
-          dataType: 'json'
-        }).done(function (data) {
-          console.log(data);
-        }).fail(function (jqXHR, textStatus, errorThrown) {
-          console.log(textStatus + ':' +errorThrown );
-        }).always(function (data) {
-         
-        })
-})
-});
-
-</script>
 
 </body>
 </html>

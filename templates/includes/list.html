@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+  <div class="card card-default">
+    <div class="card-header">
+      <h3 class="card-title">
+        <i class="fas fa-search"></i>
+        {{ title }}
+      </h3>
+    </div>
+
+    <div class="card-body">
+      <table class="table" id="example">
+        <thead>
+            {% block column %} {%endblock%}
+
+
+        </thead>
+        <tbody>
+            {% block row %} {%endblock%}
+
+        </tbody>
+      </table>
+    </div>
+    <div class="card-footer">
+      <button class="btn btn-primary btn-flat btnTest"> 
+        <i class="fas fa-plus"></i>
+        Novo registro
+      </button>
+     </div>
+
+  </div>
+
+{% endblock %}
+
+
+
+{% block javascript %}
+
+
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.12.1/r-2.3.0/datatables.min.js"></script>
+<!--   #TODO configurar biblioteca local -->
+<!-- AdminLTE for demo purposes -->
+
+
+<script type="application/javascript"> 
+
+  $(function () {
+    $('#example').DataTable({
+        language: {
+            lengthMenu: 'Mostrar _MENU_ itens por pagina',
+            zeroRecords: 'Nothing found - sorry',
+            info: 'Mostrando pagina _PAGE_ de _PAGES_',
+            infoEmpty: 'No records available',
+            infoFiltered: '(filtered from _MAX_ total records)',
+            search:         "Localizar:",
+        },
+    });
+
+    $('.btnTest').on('click', function(){
+
+      $.ajax({
+          url: "{% url 'erp:category_list' %}",
+          type: 'POST',
+          data: {id: 2},
+          dataType: 'json'
+        }).done(function (data) {
+          console.log(data);
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+          console.log(textStatus + ':' +errorThrown );
+        }).always(function (data) {
+         
+        })
+})
+});
+
+</script>
+
+{%endblock%}

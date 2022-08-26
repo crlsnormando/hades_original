@@ -1,0 +1,7 @@
+{% extends 'includes/create.html'%}
+
+
+{% block formulary %} 
+{% csrf_token %}
+{{form}}
+{% endblock %}
