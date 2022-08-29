@@ -1,4 +1,5 @@
 from ast import Try
+from email import contentmanager
 from multiprocessing import context
 from django.views.generic import ListView, CreateView
 from django.shortcuts import render
@@ -44,6 +45,9 @@ class CategoryListView(ListView):
     def get_context_data(self, **kwargs):
         context =  super().get_context_data(**kwargs)
         context['title'] = 'Listando Categorias'
+        context['create_url'] = reverse_lazy('erp:category_create')
+        context['list_url'] = reverse_lazy('erp:category_list')
+        context['entity'] = "Categorias"
         return context
 
 class CategoryCreateView(CreateView):
@@ -57,4 +61,7 @@ class CategoryCreateView(CreateView):
     def get_context_data(self, **kwargs):
         context =  super().get_context_data(**kwargs)
         context['title'] = 'Formulario Categorias'
+        context['list_url'] = reverse_lazy('erp:category_list')
+        context['entity'] = "Categorias"
+
         return context

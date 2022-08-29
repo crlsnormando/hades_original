@@ -1,3 +1,4 @@
+from turtle import back
 from django.db import models
 from datetime import datetime
 from django.forms import model_to_dict
@@ -7,7 +8,8 @@ from core.erp.choices import gender_choices
 
 class Category(models.Model):
     name = models.CharField(max_length=150, verbose_name='Nome', unique=True)
-
+    desc = models.CharField(max_length=500, null=True, blank=True, verbose_name='Descrição')
+    
     def toJson(self):
         #item = {'id': self.id, 'name': self.name}
         item= model_to_dict(self)

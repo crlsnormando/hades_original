@@ -29,11 +29,30 @@
 {% endblock %}
 
 
-
 {% block javascript %}
+<script>
+ 
+  {% if form.errors %}
 
+  var errors = '';
+      {% for field in form %}
+          {% for error in field.errors %}
+         errors+= '{{ error }} \n'
+          {% endfor %}
+
+      {% endfor %}
+
+
+
+  Swal.fire({
+    title: 'Error!',
+    text: errors,
+    icon: 'error',
+ 
+  })
+
+  {%endif%}
 
 
 </script>
-
 {%endblock%}
