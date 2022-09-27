@@ -1,7 +1,7 @@
 from ast import Try
 from email import contentmanager
 from multiprocessing import context
-from django.views.generic import ListView, CreateView
+from django.views.generic import ListView, CreateView, UpdateView
 from django.shortcuts import render
 from core.erp.forms import CategoryForm
 from core.erp.models import Category
@@ -83,5 +83,41 @@ class CategoryCreateView(CreateView):
         context['list_url'] = reverse_lazy('erp:category_list')
         context['entity'] = "Categorias"
         context['action'] = "add"
+
+        return context
+
+class CategoryUpdateView(UpdateView):
+    model = Category
+    form_class = CategoryForm
+    template_name = 'category/create.html'
+    success_url = reverse_lazy('erp:category_list')
+
+    def dispatch(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        return super().dispatch(request, *args, **kwargs)
+    
+
+    def post(self, request, *args, **kwargs):
+        data={}
+        try:
+            action = request.POST['action']
+            if action == 'edit':
+                #form = CategoryForm(request.POST) uma forma de obter o formulario
+                form = self.get_form()
+                data = form.save()
+            else:
+                data['error'] = 'Não há nenhum opção'
+            #data = Category.objects.get(pk=request.POST['id']).toJSON()
+        except Exception as e:
+            data['error'] = str(e)
+        return JsonResponse(data)
+
+    
+    def get_context_data(self, **kwargs):
+        context =  super().get_context_data(**kwargs)
+        context['title'] = 'Edição Categorias'
+        context['list_url'] = reverse_lazy('erp:category_list')
+        context['entity'] = "Categorias"
+        context['action'] = "edit"
 
         return context
